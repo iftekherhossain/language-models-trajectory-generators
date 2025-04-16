@@ -19,7 +19,22 @@ class Environment:
 
         object_start_position = config.object_start_position
         object_start_orientation_q = p.getQuaternionFromEuler(config.object_start_orientation_e)
-        object_model = p.loadURDF("ycb_assets/002_master_chef_can.urdf", object_start_position, object_start_orientation_q, useFixedBase=False, globalScaling=config.global_scaling)
+        object_model = p.loadURDF("ycb_assets/030_fork.urdf", object_start_position, object_start_orientation_q, useFixedBase=False, globalScaling=0.2)
+        
+        object2_start_position = config.object2_start_position
+        object2_start_orientation_q = p.getQuaternionFromEuler(config.object2_start_orientation_e)
+        object_model = p.loadURDF("ycb_assets/032_knife.urdf", object2_start_position, object2_start_orientation_q, useFixedBase=False, globalScaling=0.2)
+        
+
+        obj_fixed_start = [0., 0.5, 0.7]  # adjust as needed
+        obj_fixed_orientation = p.getQuaternionFromEuler(config.object_start_orientation_e)
+
+        obj_fixed_id = p.loadURDF("ycb_assets/003_cracker_box.urdf", obj_fixed_start, obj_fixed_orientation, useFixedBase=False, globalScaling=config.global_scaling)
+
+        table_position = [0., 0, 0]  # adjust as needed
+        table_orientation = p.getQuaternionFromEuler([0, 0, np.pi/2])
+
+        table_id = p.loadURDF("table/table.urdf", table_position, table_orientation, useFixedBase=True)
 
         if self.mode == "default":
 

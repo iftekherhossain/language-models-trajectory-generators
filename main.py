@@ -37,9 +37,9 @@ if __name__ == "__main__":
 
     # Parse args
     parser = argparse.ArgumentParser(description="Main Program.")
-    parser.add_argument("-lm", "--language_model", choices=["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"], default="gpt-4o", help="select language model")
-    parser.add_argument("-r", "--robot", choices=["sawyer", "franka"], default="sawyer", help="select robot")
-    parser.add_argument("-m", "--mode", choices=["default", "debug"], default="default", help="select mode to run")
+    parser.add_argument("-lm", "--language_model", choices=["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"], default="gpt-4o-mini", help="select language model")
+    parser.add_argument("-r", "--robot", choices=["sawyer", "franka"], default="franka", help="select robot")
+    parser.add_argument("-m", "--mode", choices=["default", "debug"], default="debug", help="select mode to run")
     args = parser.parse_args()
 
     # Logging
@@ -163,10 +163,11 @@ if __name__ == "__main__":
                     api.failed_task = False
 
                 else:
-
+                    # error = False
+                    # print("Helllllllllllllllllooooooooooooooooooooooooooooooooooooooooooooooooooooo")
                     logger.info(PROGRESS + "Generating ChatGPT output..." + ENDC)
                     messages = models.get_chatgpt_output(client, args.language_model, new_prompt, messages, "user")
-                    logger.info(OK + "Finished generating ChatGPT output!" + ENDC)
+                    logger.info(OK + "Finished generating ChatGPT output!---blocked code" + ENDC)
 
                     error = False
 

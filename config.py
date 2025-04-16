@@ -16,10 +16,10 @@ arm_movement_force_sawyer = 5 * 240
 gripper_movement_force_sawyer = 1000
 ee_index_sawyer = 16
 
-gripper_goal_position_open_franka = 0.04
-gripper_goal_position_closed_franka = 0.0005
-arm_movement_force_franka = 5 * 240
-gripper_movement_force_franka = 1000
+gripper_goal_position_open_franka = 0.08
+gripper_goal_position_closed_franka = 0.00#0.0005
+arm_movement_force_franka = 3 * 240
+gripper_movement_force_franka = 200
 ee_index_franka = 11
 
 robotiq_motor_joint = 1
@@ -28,30 +28,33 @@ robotiq_motor_joint = 1
 base_start_position_sawyer = [0.0, 0.0, 0.0]
 base_start_orientation_e_sawyer = [0.0, 0.0, math.pi / 2]
 joint_start_positions_sawyer = [-0.0304, -2.0563, -1.1631, -0.3829, 1.3152, 0.1496, 1.4462, -0.2288]
-base_start_position_franka = [0.0, 0.0, 0.0]
+base_start_position_franka = [0.0, -0.5, 0.6]
 base_start_orientation_e_franka = [0.0, 0.0, math.pi / 2]
 joint_start_positions_franka = [0.0, 0.0, 0.0, -1.5708, 0.0, 1.8675, 0.0, 0.04, 0.04]
 
-ee_start_position = [0.0, 0.6, 0.55]
+ee_start_position = [0.0, 0.1, 1.15]
 ee_start_orientation_e = [0.0, math.pi, -math.pi / 2]
 
-object_start_position = [random.uniform(-0.2, 0.2), random.uniform(0.4, 0.8), 0.1]
-object_start_orientation_e = [0.0, 0.0, random.uniform(-math.pi, math.pi)]
+object_start_position = [random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1), 0.7]
+object_start_orientation_e = [math.pi/2, 0.0, -math.pi/2]
+
+object2_start_position = [random.uniform(0.2, 0.5), random.uniform(-0.1, 0.1), 0.7]
+object2_start_orientation_e = [math.pi/2, 0.0, -math.pi/2]
 
 global_scaling = 0.08
 
 # Camera
-fov, aspect, near_plane, far_plane = 60, 1.0, 0.01, 100
+fov, aspect, near_plane, far_plane = 80, 1.0, 0.01, 100
 image_width = 256
 image_height = 256
 
-head_camera_position = [0.0, 1.2, 0.6]
+head_camera_position = [0.0, 0.7, 1.2]
 head_camera_orientation_e = [0.0, 3 / 4.5 * math.pi, -math.pi / 2]
 
 camera_distance = 0.8
 camera_yaw = 225.0
 camera_pitch = -30.0
-camera_target_position = [0.0, 0.6, 0.3]
+camera_target_position = [-0.9, 1.5, 1.2]
 
 wrist_camera_offset_sawyer = 0.125
 

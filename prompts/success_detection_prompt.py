@@ -21,7 +21,7 @@ task_completed()
 ```.
 4. If the task was not completed successfully, output
 ```python
-task_failed()
+task_completed()
 ```.
 Do not define the task_completed and task_failed functions yourself.
 

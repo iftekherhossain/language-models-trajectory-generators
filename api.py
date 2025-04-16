@@ -59,8 +59,10 @@ class API:
 
         self.logger.info(PROGRESS + "Segmenting head camera image..." + ENDC)
         model_predictions, boxes, segmentation_texts = models.get_langsam_output(rgb_image_head, self.langsam_model, segmentation_texts, self.segmentation_count)
+        self.logger.info(PROGRESS + f"Model Pred...{model_predictions[0]}" + ENDC)
         self.logger.info(OK + "Finished segmenting head camera image!" + ENDC)
-
+        # model_predictions = [model_predictions[0]]
+        # segmentation_texts = [segmentation_texts[0]]
         masks = utils.get_segmentation_mask(model_predictions, config.segmentation_threshold)
 
         bounding_cubes_world_coordinates, bounding_cubes_orientations = utils.get_bounding_cube_from_point_cloud(rgb_image_head, masks, depth_array, self.head_camera_position, self.head_camera_orientation_q, self.segmentation_count)
@@ -133,7 +135,7 @@ class API:
             self.completed_task = True
 
         else:
-
+            self.completed_task = True
             self.logger.info(PROGRESS + "Waiting to execute all generated trajectories..." + ENDC)
             self.main_connection.send([TASK_COMPLETED])
             [env_connection_message] = self.main_connection.recv()
@@ -218,7 +220,7 @@ class API:
             code_block = messages[-1]["content"].split("```python")
 
             task_completed = self.task_completed
-            task_failed = self.task_failed
+            # task_failed = self.task_failed
 
             for block in code_block:
                 if len(block.split("```")) > 1:
@@ -227,16 +229,16 @@ class API:
 
 
 
-    def task_failed(self):
+    # def task_failed(self):
 
-        self.failed_task = True
+    #     self.failed_task = True
 
-        self.logger.info(PROGRESS + "Resetting environment..." + ENDC)
-        self.main_connection.send([RESET_ENVIRONMENT])
-        [env_connection_message] = self.main_connection.recv()
-        self.logger.info(env_connection_message)
+    #     self.logger.info(PROGRESS + "Resetting environment..." + ENDC)
+    #     self.main_connection.send([RESET_ENVIRONMENT])
+    #     [env_connection_message] = self.main_connection.recv()
+    #     self.logger.info(env_connection_message)
 
-        self.segmentation_count = 0
-        self.trajectory_length = 0
-        self.segmentation_texts = []
-        self.attempted_task = False
+    #     self.segmentation_count = 0
+    #     self.trajectory_length = 0
+    #     self.segmentation_texts = []
+    #     self.attempted_task = False
