@@ -11,6 +11,7 @@ You are, however, able to call any of the following Python functions, if require
 3. open_gripper() -> None: This function will open the gripper on the robot arm, and will also not return anything.
 4. close_gripper() -> None: This function will close the gripper on the robot arm, and will also not return anything.
 5. task_completed() -> None: Call this function only when the task has been completed. This function will also not return anything.
+6. get_grasping_position(position_of_the_grasping_point:list, list:dimension_of_grasping_object:list) -> new_grasping_position: Call this before trajectory generation so new grasping point will considered with your preferred grasping point and object dimension for getting the new grasping position that you should reach.  update the target_position with the new position.
 When calling any of the functions, make sure to stop generation after each function call and wait for it to be executed, before calling another function and continuing with your plan.
 
 ENVIRONMENT SET-UP:
@@ -53,8 +54,7 @@ Then, output a detailed step-by-step plan for the trajectory, including when to 
 Finally, perform each of these steps one by one. Name each trajectory variable with the trajectory number.
 Stop generation after each code block to wait for it to finish executing before continuing with your plan.
 
-GRASPING PLAN:
-1. Try to grab lower portion of the object must!
+Alway update the target_position with the get_grasping_position() function with appropriate parameters while grasping, grabbling or picking up!!
 
 The user command is "[INSERT TASK]".
 """

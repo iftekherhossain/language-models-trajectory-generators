@@ -228,6 +228,15 @@ class API:
                     exec(code)
 
 
+    def get_grasping_position(self, position,dimention) -> list:
+        self.logger.info(OK + f"Old Grasping!{position}" + ENDC)
+        self.logger.info(OK + f"Old Grasping!{dimention}" + ENDC)
+        reduce = (max(dimention)/3)
+        self.logger.info(OK + f"Reduction!{reduce}" + ENDC)
+        new_pos = position[1]-reduce
+        position[1] =new_pos
+        self.logger.info(OK + f"New Grasping!{position}" + ENDC)
+        return position
 
     # def task_failed(self):
 

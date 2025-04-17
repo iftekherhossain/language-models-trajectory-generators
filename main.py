@@ -69,7 +69,7 @@ if __name__ == "__main__":
     open_gripper = api.open_gripper
     close_gripper = api.close_gripper
     task_completed = api.task_completed
-
+    get_grasping_position = api.get_grasping_position
     # Start process
     env_process = Process(target=run_simulation_environment, name="EnvProcess", args=[args, env_connection, logger])
     env_process.start()
@@ -163,8 +163,7 @@ if __name__ == "__main__":
                     api.failed_task = False
 
                 else:
-                    # error = False
-                    # print("Helllllllllllllllllooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+        
                     logger.info(PROGRESS + "Generating ChatGPT output..." + ENDC)
                     messages = models.get_chatgpt_output(client, args.language_model, new_prompt, messages, "user")
                     logger.info(OK + "Finished generating ChatGPT output!---blocked code" + ENDC)
