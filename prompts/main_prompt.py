@@ -53,8 +53,8 @@ Then, output a detailed step-by-step plan for the trajectory, including when to 
 Finally, perform each of these steps one by one. Name each trajectory variable with the trajectory number.
 Stop generation after each code block to wait for it to finish executing before continuing with your plan.
 
-GRASPING PLAN:
-1. Try to grab lower portion of the object must!
 
+**When holding another object, consider how far the tip of the holding object location and consider that position as your arm position now**
+**ALWAYS USE LOOP FOR TRAJECTRY GENERATION**
 The user command is "[INSERT TASK]".
 """
