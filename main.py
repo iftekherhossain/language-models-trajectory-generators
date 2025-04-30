@@ -29,6 +29,11 @@ sys.path.append("./XMem/")
 print = functools.partial(print, flush=True)
 
 from XMem.model.network import XMem
+commands = [
+    "Pick up the pen.",
+    "Use the pen to pull the mug.",
+    "Pick up the mug."
+]
 
 if __name__ == "__main__":
 
@@ -69,7 +74,7 @@ if __name__ == "__main__":
     open_gripper = api.open_gripper
     close_gripper = api.close_gripper
     task_completed = api.task_completed
-    get_grasping_position = api.get_grasping_position
+
     # Start process
     env_process = Process(target=run_simulation_environment, name="EnvProcess", args=[args, env_connection, logger])
     env_process.start()
@@ -78,7 +83,7 @@ if __name__ == "__main__":
     logger.info(env_connection_message)
 
     # User input
-    command = input("Enter a command: ")
+    command = commands.pop(0)
     api.command = command
 
     # Main task execution loop
@@ -163,7 +168,8 @@ if __name__ == "__main__":
                     api.failed_task = False
 
                 else:
-        
+                    # error = False
+                    # print("Helllllllllllllllllooooooooooooooooooooooooooooooooooooooooooooooooooooo")
                     logger.info(PROGRESS + "Generating ChatGPT output..." + ENDC)
                     messages = models.get_chatgpt_output(client, args.language_model, new_prompt, messages, "user")
                     logger.info(OK + "Finished generating ChatGPT output!---blocked code" + ENDC)
@@ -172,7 +178,7 @@ if __name__ == "__main__":
 
         logger.info(OK + "FINISHED TASK!" + ENDC)
 
-        new_prompt = input("Enter a command: ")
+        new_prompt = commands.pop(0)
 
         logger.info(PROGRESS + "Generating ChatGPT output..." + ENDC)
         messages = models.get_chatgpt_output(client, args.language_model, new_prompt, messages, "user")
