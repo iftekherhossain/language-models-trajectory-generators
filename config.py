@@ -36,7 +36,7 @@ ee_start_position = [0.0, 0.1, 1.15]
 ee_start_orientation_e = [0.0, math.pi, -math.pi / 2]
 
 object_start_position = [random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1), 0.7]
-object_start_orientation_e = [math.pi/2, 0.0, -math.pi/2]
+object_start_orientation_e = [math.pi/2, -math.pi/2, -math.pi/2]
 
 object2_start_position = [random.uniform(0.2, 0.5), random.uniform(-0.1, 0.1), 0.7]
 object2_start_orientation_e = [math.pi/2, 0.0, -math.pi/2]

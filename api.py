@@ -237,6 +237,31 @@ class API:
         position[1] =new_pos
         self.logger.info(OK + f"New Grasping!{position}" + ENDC)
         return position
+    
+    def generate_linear_trajectory(self,start_pose, end_pose, num_points=100):
+        """
+        Generate a linear trajectory from start_pose to end_pose with specified number of points.
+        
+        Parameters:
+        - start_pose: list of [x, y, z, rotation]
+        - end_pose: list of [x, y, z, rotation]
+        - num_points: number of trajectory points (default = 100)
+        
+        Returns:
+        - trajectory: list of [x, y, z, rotation] poses
+        """
+        trajectory = []
+        self.logger.info(OK + f"NUMBER_OF_POINTS{num_points}" + ENDC)
+        for i in range(num_points):
+            t = i / (num_points - 1)
+            interp_pose = [
+                start_pose[0] + t * (end_pose[0] - start_pose[0]),
+                start_pose[1] + t * (end_pose[1] - start_pose[1]),
+                start_pose[2] + t * (end_pose[2] - start_pose[2]),
+                start_pose[3] + t * (end_pose[3] - start_pose[3])
+            ]
+            trajectory.append(interp_pose)
+        return trajectory
 
     # def task_failed(self):
 

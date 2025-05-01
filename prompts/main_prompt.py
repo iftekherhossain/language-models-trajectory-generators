@@ -12,6 +12,7 @@ You are, however, able to call any of the following Python functions, if require
 4. close_gripper() -> None: This function will close the gripper on the robot arm, and will also not return anything.
 5. task_completed() -> None: Call this function only when the task has been completed. This function will also not return anything.
 6. get_grasping_position(position_of_the_grasping_point:list, list:dimension_of_grasping_object:list) -> new_grasping_position: Call this before trajectory generation so new grasping point will considered with your preferred grasping point and object dimension for getting the new grasping position that you should reach.  update the target_position with the new position.
+7. generate_linear_trajectory(start_pose, end_pose) -> list_of_trajectory: Always call this before moving to a specific pose.
 When calling any of the functions, make sure to stop generation after each function call and wait for it to be executed, before calling another function and continuing with your plan.
 
 ENVIRONMENT SET-UP:
@@ -55,6 +56,15 @@ Finally, perform each of these steps one by one. Name each trajectory variable w
 Stop generation after each code block to wait for it to finish executing before continuing with your plan.
 
 Alway update the target_position with the get_grasping_position() function with appropriate parameters while grasping, grabbling or picking up!!
-
+**
+If any command have Pull command with other object then FORGET PREVIOUS PLAN that means you MUST have to follow this instruction
+1. suppose the object you have pull is at (x_tar,y_tar,z_tar)
+2. your hand is now at (x,y,z)
+3. estimate the tip position of your hand's object
+4. estimitate your hand location as the tip of the hand's object will be just left of the pulling object
+5. make a safe height of 0.05 meter away in z axis from the table
+6. after placing the tip left of the object then turn a full 180 degree having the same position. 
+7. place the hands object in (0,0) position in the table very very slowly
+**
 The user command is "[INSERT TASK]".
 """

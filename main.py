@@ -74,6 +74,8 @@ if __name__ == "__main__":
     open_gripper = api.open_gripper
     close_gripper = api.close_gripper
     task_completed = api.task_completed
+    get_grasping_position = api.get_grasping_position
+    generate_linear_trajectory = api.generate_linear_trajectory
 
     # Start process
     env_process = Process(target=run_simulation_environment, name="EnvProcess", args=[args, env_connection, logger])
