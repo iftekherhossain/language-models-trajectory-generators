@@ -19,7 +19,7 @@ class Environment:
 
         object_start_position = config.object_start_position
         object_start_orientation_q = p.getQuaternionFromEuler(config.object_start_orientation_e)
-        object_model = p.loadURDF("ycb_assets/040_large_marker.urdf", object_start_position, object_start_orientation_q, useFixedBase=False, globalScaling=0.2)
+        object_model = p.loadURDF("ycb_assets/040_large_marker.urdf", object_start_position, object_start_orientation_q, useFixedBase=False, globalScaling=0.3)
         
         object2_start_position = config.object2_start_position
         object2_start_orientation_q = p.getQuaternionFromEuler(config.object2_start_orientation_e)

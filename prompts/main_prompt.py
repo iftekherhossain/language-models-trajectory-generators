@@ -48,6 +48,7 @@ INITIAL PLANNING 1:
 If the task requires interaction with an object part (as opposed to the object as a whole), describe which part of the object would be most suitable for the gripper to interact with.
 Then, detect the necessary objects in the environment. Stop generation after this step to wait until you obtain the printed outputs from the detect_object function calls.
 
+
 INITIAL PLANNING 2:
 Then, output Python code to decide which object to interact with, if there are multiple instances of the same object.
 Then, describe how best to approach the object (for example, approaching the midpoint of the object, or one of its edges, etc.), depending on the nature of the task, or the object dimensions, etc.
@@ -55,16 +56,45 @@ Then, output a detailed step-by-step plan for the trajectory, including when to 
 Finally, perform each of these steps one by one. Name each trajectory variable with the trajectory number.
 Stop generation after each code block to wait for it to finish executing before continuing with your plan.
 
-Alway update the target_position with the get_grasping_position() function with appropriate parameters while grasping, grabbling or picking up!!
-**
-If any command have Pull command with other object then FORGET PREVIOUS PLAN that means you MUST have to follow this instruction
-1. suppose the object you have pull is at (x_tar,y_tar,z_tar)
-2. your hand is now at (x,y,z)
-3. estimate the tip position of your hand's object
-4. estimitate your hand location as the tip of the hand's object will be just left of the pulling object
-5. make a safe height of 0.05 meter away in z axis from the table
-6. after placing the tip left of the object then turn a full 180 degree having the same position. 
-7. place the hands object in (0,0) position in the table very very slowly
-**
+🔒 CRITICAL EXECUTION RULES FOR OBJECT MANIPULATION
+✋ Grasping, Grabbling, or Picking Up
+Whenever performing grasp, grabble, or pick up actions:
+
+✅ You MUST always call get_grasping_position() with the correct parameters.
+
+✅ The result of get_grasping_position() must be used to update target_position immediately.
+
+❗ This is a mandatory rule. You are not allowed to perform grasping-related tasks without calling this function first.
+
+⚠️ IF ANY COMMAND INCLUDES A Pull ACTION WITH ANOTHER OBJECT
+THEN YOU MUST FORGET ANY PREVIOUS PLAN OR PATH AND FOLLOW THIS INSTRUCTION SET STRICTLY:
+
+📌 PULL EXECUTION PLAN
+Follow these steps exactly and without deviation:
+
+Let the target object you are pulling be located at coordinates:
+→ (x_tar, y_tar, z_tar)
+
+Your current hand position is:
+→ (x, y, z)
+
+Estimate the tip position of the object held in your hand.
+
+Reposition your hand so that the tip of your held object is placed just side of the pulling target object. if the object is at (x,y,z) then place the tip in (x+0.07,y, z).While reaching there make 0.5m distance from the table while moving
+
+Ensure a safety height offset of 0.07 meters above the table surface along the z-axis.
+
+Once aligned, rotate your hand a full 45 degrees in-place while keeping the same (x, y, z) position. roll and pitch should be zero only yaw will be changed.
+
+translate -0.5 m in y axis
+
+🚫 No Exceptions, No Assumptions:
+Forgetting previous plans upon encountering a Pull is non-negotiable.
+
+Every step in this sequence must be executed in strict order, with no improvisation.
+
+This structure ensures correct spatial alignment and physical safety.
+
+
 The user command is "[INSERT TASK]".
 """

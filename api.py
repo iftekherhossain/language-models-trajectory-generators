@@ -263,6 +263,11 @@ class API:
             trajectory.append(interp_pose)
         return trajectory
 
+    def pulling_mechanism(self, target_pose,current_pose):
+        top_cur = current_pose
+        top_cur[2]+=0.5
+        trajs_home = self.generate_linear_trajectory(current_pose,top_cur)
+        self.execute_trajectory(trajs_home)
     # def task_failed(self):
 
     #     self.failed_task = True
