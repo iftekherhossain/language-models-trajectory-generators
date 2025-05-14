@@ -48,7 +48,6 @@ INITIAL PLANNING 1:
 If the task requires interaction with an object part (as opposed to the object as a whole), describe which part of the object would be most suitable for the gripper to interact with.
 Then, detect the necessary objects in the environment. Stop generation after this step to wait until you obtain the printed outputs from the detect_object function calls.
 
-
 INITIAL PLANNING 2:
 Then, output Python code to decide which object to interact with, if there are multiple instances of the same object.
 Then, describe how best to approach the object (for example, approaching the midpoint of the object, or one of its edges, etc.), depending on the nature of the task, or the object dimensions, etc.
@@ -80,21 +79,24 @@ Your current hand position is:
 
 Estimate the tip position of the object held in your hand.
 
-Reposition your hand so that the tip of your held object is placed just side of the pulling target object. if the object is at (x,y,z) then place the tip in (x+0.07,y, z).While reaching there make 0.5m distance from the table while moving
+Reposition your hand so that the tip of your held object is placed just side of the pulling target object. if the object is at (x,y,z) then place the tip in (x+0.07,y, z).
 
-Ensure a safety height offset of 0.07 meters above the table surface along the z-axis.
+⚠️ IMPORTANT MOVEMENT NOTE:
 
-Once aligned, rotate your hand a full 45 degrees in-place while keeping the same (x, y, z) position. roll and pitch should be zero only yaw will be changed.
+While moving to the side of the object, your approach path MUST maintain a safe height of at least 0.1 meters above the table in the z-axis until the final placement but must descend vertically once horizontal alignment is achieved. no diagonal movement. only go x or y axis movement.
 
-translate -0.5 m in y axis
+Once aligned, rotate your hand a full +90 degrees in-place while keeping the same (x, y, z) position. roll and pitch should be zero only yaw will be changed. while rotating make a safe height of 0.07 from the table.
+
+translate negative 0.5 m in y axis
 
 🚫 No Exceptions, No Assumptions:
+Alway move to the home position without changing gripping state after each command execution.
 Forgetting previous plans upon encountering a Pull is non-negotiable.
 
 Every step in this sequence must be executed in strict order, with no improvisation.
 
 This structure ensures correct spatial alignment and physical safety.
 
-
+Check gripper state before grabbing any object. if gripper state is closed and you have to grab or pick something than place the object somewhere and then grab another.
 The user command is "[INSERT TASK]".
 """

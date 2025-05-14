@@ -16,10 +16,10 @@ arm_movement_force_sawyer = 5 * 240
 gripper_movement_force_sawyer = 1000
 ee_index_sawyer = 16
 
-gripper_goal_position_open_franka = 0.08
+gripper_goal_position_open_franka = 0.85
 gripper_goal_position_closed_franka = 0.00#0.0005
 arm_movement_force_franka = 3 * 240
-gripper_movement_force_franka = 200
+gripper_movement_force_franka = 100
 ee_index_franka = 11
 
 robotiq_motor_joint = 1
@@ -93,7 +93,7 @@ OPEN_GRIPPER = 5
 CLOSE_GRIPPER = 6
 TASK_COMPLETED = 7
 RESET_ENVIRONMENT = 8
-
+ROTATE = 9
 # Paths
 rgb_image_wrist_path = "./images/rgb_image_wrist.png"
 depth_image_wrist_path = "./images/depth_image_wrist.png"

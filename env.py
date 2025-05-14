@@ -5,7 +5,7 @@ import time
 import config
 from robot import Robot
 from config import OK, PROGRESS, FAIL, ENDC
-from config import CAPTURE_IMAGES, ADD_BOUNDING_CUBES, ADD_TRAJECTORY_POINTS, EXECUTE_TRAJECTORY, OPEN_GRIPPER, CLOSE_GRIPPER, TASK_COMPLETED, RESET_ENVIRONMENT
+from config import CAPTURE_IMAGES, ADD_BOUNDING_CUBES, ADD_TRAJECTORY_POINTS, EXECUTE_TRAJECTORY, OPEN_GRIPPER, CLOSE_GRIPPER, TASK_COMPLETED, RESET_ENVIRONMENT, ROTATE
 
 class Environment:
 
@@ -20,17 +20,17 @@ class Environment:
         object_start_position = config.object_start_position
         object_start_orientation_q = p.getQuaternionFromEuler(config.object_start_orientation_e)
         object_model = p.loadURDF("ycb_assets/040_large_marker.urdf", object_start_position, object_start_orientation_q, useFixedBase=False, globalScaling=0.3)
-        
+    
         object2_start_position = config.object2_start_position
         object2_start_orientation_q = p.getQuaternionFromEuler(config.object2_start_orientation_e)
         object_model = p.loadURDF("ycb_assets/032_knife.urdf", object2_start_position, object2_start_orientation_q, useFixedBase=False, globalScaling=0.2)
         
 
-        obj_fixed_start = [0., 0.3, 0.7]  # adjust as needed
+        obj_fixed_start = [0., 0.35, 0.7]  # adjust as needed
         obj_fixed_orientation = p.getQuaternionFromEuler([0,0,0])
 
         obj_fixed_id = p.loadURDF("ycb_assets/025_mug.urdf", obj_fixed_start, obj_fixed_orientation, useFixedBase=False, globalScaling=config.global_scaling)
-
+        # p.changeDynamics(obj_fixed_id, -1, lateralFriction=0.1)
         table_position = [0., 0, 0]  # adjust as needed
         table_orientation = p.getQuaternionFromEuler([0, 0, np.pi/2])
 
@@ -167,5 +167,14 @@ def run_simulation_environment(args, env_connection, logger):
 
                 env_connection_message = OK + "Finished resetting environment!" + ENDC
                 env_connection.send([env_connection_message])
+
+            # elif env_connection_received[0] == ROTATE:
+            #     ee_current_position = p.getLinkState(robot.id, robot.ee_index, computeForwardKinematics=True)[0]
+            #     # ee_current_orientation_q = p.getLinkState(robot.id, robot.ee_index, computeForwardKinematics=True)[1]
+            #     ee_current_orientation_e = p.getEulerFromQuaternion(ee_current_orientation_q)
+            #     rotated_orientation_e = ee_current_orientation_e
+            #     rotated_orientation_e[2] += 1.5
+            #     robot.move(env, ee_current_position,rotated_orientation_e, gripper_open=False, is_trajectory=False)
+                
 
         env.update()

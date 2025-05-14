@@ -30,7 +30,7 @@ print = functools.partial(print, flush=True)
 
 from XMem.model.network import XMem
 commands = [
-    "Pick up the pen.",
+    "Pick up the marker.",
     "Use the pen to pull the mug.",
     "Pick up the mug."
 ]

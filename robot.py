@@ -26,6 +26,12 @@ class Robot:
             self.id = p.loadURDF("franka_robot/panda.urdf", self.base_start_position, self.base_start_orientation_q, useFixedBase=True)
             self.robot = "franka"
             self.ee_index = config.ee_index_franka
+            for joint_index in range(p.getNumJoints(self.id)):
+                joint_info = p.getJointInfo(self.id, joint_index)
+                link_name = joint_info[12].decode("utf-8")
+                
+                if "finger" in link_name:
+                    p.changeDynamics(self.id, joint_index, lateralFriction=2.0, spinningFriction=0.2, rollingFriction=0.1)
         self.ee_start_position = config.ee_start_position
         self.ee_start_orientation_e = config.ee_start_orientation_e
         self.ee_current_position = config.ee_start_position
