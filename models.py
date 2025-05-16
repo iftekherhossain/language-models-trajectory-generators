@@ -42,46 +42,53 @@ from XMem.inference.interact.interactive_utils import image_to_torch, index_nump
 #     return masks, boxes, phrases
 
 def get_langsam_output(image, model, segmentation_texts, segmentation_count):
+    try:
+        if isinstance(segmentation_texts, str):  
+            segmentation_texts = [segmentation_texts]
 
-    if isinstance(segmentation_texts, str):  
-        segmentation_texts = [segmentation_texts]
+        [out] = model.predict([image], segmentation_texts)
+        # print(out,len(out))
+        masks, boxes, phrases = out['masks'],out['boxes'],out['labels']
+        # masks = masks.astype(bool)
+        masks, boxes, phrases =np.array([masks[0]]), np.array([boxes[0]]), np.array([phrases[0]])
+        masks = torch.tensor(masks, dtype=torch.bool)
+        # print(masks)
+        # print(masks.shape)
+        _, ax = plt.subplots(1, 1 + len(masks), figsize=(5 + (5 * len(masks)), 5))
+        [a.axis("off") for a in ax.flatten()]
+        ax[0].imshow(image)
+        to_be_discarded = []
+        for i, (mask, box, phrase) in enumerate(zip(masks, boxes, phrases)):
+            size_of_box = abs((box[0]-box[2]))*abs((box[1]-box[3]))
+            print("size of the box",size_of_box)
+            if size_of_box > 9000:
+                continue
+            to_tensor = transforms.PILToTensor()
+            image_tensor = to_tensor(image)
+            # if box[1]>image.size[1]-30:
+            #     to_be_discarded.append(i)
+            #     continue
+            box = torch.tensor(box)
+            box = box.unsqueeze(dim=0)
+            image_tensor = draw_bounding_boxes(image_tensor, box, colors=["red"], width=3)
+            image_tensor = draw_segmentation_masks(image_tensor, mask, alpha=0.5, colors=["cyan"])
+            to_pil_image = transforms.ToPILImage()
+            image_pil = to_pil_image(image_tensor)
 
-    [out] = model.predict([image], segmentation_texts)
-    print(out,len(out))
-    masks, boxes, phrases = out['masks'],out['boxes'],out['labels']
-    # masks = masks.astype(bool)
-    masks, boxes, phrases =np.array([masks[0]]), np.array([boxes[0]]), np.array([phrases[0]])
-    masks = torch.tensor(masks, dtype=torch.bool)
-    print(masks)
-    print(masks.shape)
-    _, ax = plt.subplots(1, 1 + len(masks), figsize=(5 + (5 * len(masks)), 5))
-    [a.axis("off") for a in ax.flatten()]
-    ax[0].imshow(image)
-    to_be_discarded = []
-    for i, (mask, box, phrase) in enumerate(zip(masks, boxes, phrases)):
-        to_tensor = transforms.PILToTensor()
-        image_tensor = to_tensor(image)
-        if box[1]>image.size[1]-30:
-            to_be_discarded.append(i)
-            continue
-        box = torch.tensor(box)
-        box = box.unsqueeze(dim=0)
-        image_tensor = draw_bounding_boxes(image_tensor, box, colors=["red"], width=3)
-        image_tensor = draw_segmentation_masks(image_tensor, mask, alpha=0.5, colors=["cyan"])
-        to_pil_image = transforms.ToPILImage()
-        image_pil = to_pil_image(image_tensor)
+            ax[1 + i].imshow(image_pil)
+            ax[1 + i].text(box[0][0], box[0][1] - 15, phrase, color="red", bbox={"facecolor":'white', "edgecolor":"red", "boxstyle":"square"})
 
-        ax[1 + i].imshow(image_pil)
-        ax[1 + i].text(box[0][0], box[0][1] - 15, phrase, color="red", bbox={"facecolor":'white', "edgecolor":"red", "boxstyle":"square"})
+        plt.savefig(config.langsam_image_path.format(object=segmentation_count))
+        plt.show()
+        
 
-    plt.savefig(config.langsam_image_path.format(object=segmentation_count))
-    plt.show()
-    
-
-    masks = masks.float()
-    for tbd in to_be_discarded:
-        boxes.pop(tbd)
-    return masks, boxes, phrases
+        masks = masks.float()
+        for tbd in to_be_discarded:
+            boxes.pop(tbd)
+        print("BOooooxessss", boxes)
+        return masks, boxes, phrases
+    except:
+        return [],[],[segmentation_texts]
 
 
 def get_chatgpt_output(client, model, new_prompt, messages, role, file=sys.stdout):
