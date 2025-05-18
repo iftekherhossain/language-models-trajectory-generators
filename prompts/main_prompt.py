@@ -87,7 +87,7 @@ While moving to the side of the object, your approach path MUST maintain a safe 
 
 Once aligned, rotate your hand a full +90 degrees in-place while keeping the same (x, y, z) position. roll and pitch should be zero only yaw will be changed. while rotating make a safe height of 0.07 from the table.
 
-translate negative 0.5 m in y axis
+translate negative 0.2 m in y axis
 
 🚫 No Exceptions, No Assumptions:
 Alway move to the home position without changing gripping state after each command execution.

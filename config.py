@@ -35,10 +35,10 @@ joint_start_positions_franka = [0.0, 0.0, 0.0, -1.5708, 0.0, 1.8675, 0.0, 0.04, 
 ee_start_position = [0.0, 0.1, 1.15]
 ee_start_orientation_e = [0.0, math.pi, -math.pi / 2]
 
-object_start_position = [random.uniform(-0.2, 0.2), random.uniform(-0.1, 0.1), 0.7]
+object_start_position = [random.uniform(-0.3, 0), random.uniform(-0.1, 0.1), 1]
 object_start_orientation_e = [math.pi/2, -math.pi/2, -math.pi/2]
 
-object2_start_position = [random.uniform(0.2, 0.5), random.uniform(-0.1, 0.1), 0.7]
+object2_start_position = [random.uniform(0.2, 0.5), random.uniform(-0.1, 0.1), 1]
 object2_start_orientation_e = [math.pi/2, 0.0, -math.pi/2]
 
 global_scaling = 0.08

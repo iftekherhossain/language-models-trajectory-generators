@@ -30,9 +30,10 @@ print = functools.partial(print, flush=True)
 
 from XMem.model.network import XMem
 commands = [
-    "Pick up the marker.",
-    "Use the pen to pull the mug.",
-    "Pick up the mug."
+    "Pick up the Fork.",
+    "Push the Rubiks Cube with it",
+    # "Place the marker",
+    # "Pick up the mug."
 ]
 
 if __name__ == "__main__":

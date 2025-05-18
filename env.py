@@ -19,17 +19,17 @@ class Environment:
 
         object_start_position = config.object_start_position
         object_start_orientation_q = p.getQuaternionFromEuler(config.object_start_orientation_e)
-        object_model = p.loadURDF("ycb_assets/040_large_marker.urdf", object_start_position, object_start_orientation_q, useFixedBase=False, globalScaling=0.3)
+        object_model = p.loadURDF("ycb_assets/040_large_marker.urdf", object_start_position, object_start_orientation_q, useFixedBase=False, globalScaling=0.2)
     
         object2_start_position = config.object2_start_position
         object2_start_orientation_q = p.getQuaternionFromEuler(config.object2_start_orientation_e)
-        object_model = p.loadURDF("ycb_assets/032_knife.urdf", object2_start_position, object2_start_orientation_q, useFixedBase=False, globalScaling=0.2)
+        object_model = p.loadURDF("ycb_assets/037_scissors.urdf", object2_start_position, object2_start_orientation_q, useFixedBase=False, globalScaling=0.2)
         
 
         obj_fixed_start = [0., 0.35, 0.7]  # adjust as needed
         obj_fixed_orientation = p.getQuaternionFromEuler([0,0,0])
 
-        obj_fixed_id = p.loadURDF("ycb_assets/025_mug.urdf", obj_fixed_start, obj_fixed_orientation, useFixedBase=False, globalScaling=config.global_scaling)
+        obj_fixed_id = p.loadURDF("ycb_assets/007_tuna_fish_can.urdf", obj_fixed_start, obj_fixed_orientation, useFixedBase=False, globalScaling=config.global_scaling)
         # p.changeDynamics(obj_fixed_id, -1, lateralFriction=0.1)
         table_position = [0., 0, 0]  # adjust as needed
         table_orientation = p.getQuaternionFromEuler([0, 0, np.pi/2])
